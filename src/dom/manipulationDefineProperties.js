@@ -1,5 +1,6 @@
 var htmlparser = require('htmlparser2');
 var serialize = require('dom-serializer');
+var entities = require('entities');
 
 
 module.exports = function(obj) {
@@ -13,7 +14,7 @@ module.exports = function(obj) {
             var preDom = htmlparser.parseDOM(html);
 
             for (var i = 0; i < preDom.length; i++) {
-                this.children.push(new this.constructor(preDom[i]));
+                this.children.push(new this.constructor(preDom[i], this));
             }
         }
     });
@@ -29,5 +30,13 @@ module.exports = function(obj) {
             return this.attribs.className;
         }
     });
+    
+    Object.defineProperty(obj.prototype, 'nodeValue', {
+        get: function() {
+            return entities.decodeHTML(this.data);
+        }
+    });
+    
+    
     
 };
