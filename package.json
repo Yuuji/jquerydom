@@ -1,0 +1,13 @@
+{
+  "name": "jquerydom",
+  "version": "0.0.1",
+  "description": "jQuery compatible DOM",
+  "main": "main.js",
+  "author": "",
+  "license": "GPL-3.0",
+  "dependencies": {
+      "htmlparser2": "",
+      "dom-serializer": "",
+      "modelo": ""
+  }
+}
