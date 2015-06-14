@@ -10,6 +10,7 @@ nodejQuery.prototype.initjQuery = function() {
     global.window = new Window(document);
     
     require('./jquery-1.11.3')(global);
+    
     //console.log();
 };
 

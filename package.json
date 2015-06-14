@@ -8,6 +8,7 @@
   "dependencies": {
       "htmlparser2": "",
       "dom-serializer": "",
-      "modelo": ""
+      "modelo": "",
+      "css": ""
   }
 }
