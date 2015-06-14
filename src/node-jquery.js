@@ -6,12 +6,12 @@ var nodejQuery = function() {
 };
 
 nodejQuery.prototype.initjQuery = function() {
-    global.document = new Document('<html><head></head><body test="test2"></body></html>');
-    global.window = new Window(document);
+    var document = new Document('<html><head></head><body test="test2"></body></html>');
+    var window = new Window(document);
     
-    require('./jquery-1.11.3')(global);
+    var $ = require('./jquery-1.11.3')(window);
     
-    //console.log();
+    console.log($('html')[0].innerHTML);
 };
 
 module.exports = nodejQuery;
