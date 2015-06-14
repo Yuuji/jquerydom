@@ -13,7 +13,8 @@ var element = function(data, parent, isDeepClone) {
     this.type = data.type || 'tag';
     
     if (data.name) {
-        this.name = this.nodeName = this.tagName = data.name.toUpperCase();
+        this.name = data.name;
+        this.nodeName = this.tagName = data.name.toUpperCase();
     }
     
     if (data.text) {
