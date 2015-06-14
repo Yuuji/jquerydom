@@ -6,9 +6,7 @@ module.exports = function(obj) {
     
     Object.defineProperty(obj.prototype, 'innerHTML', {
         get: function() {
-            console.log(serialize(this.children));
-            throw new Error('Not supported');
-            //return ;
+            return serialize(this.children);
         },
         set: function(html) {
             this.children = [];
