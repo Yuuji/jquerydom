@@ -16,6 +16,7 @@ modelo.inherits(Document, Events, Traversing);
 TraversingDefineProperties(Document);
 
 
+Document.prototype.nodeType = 9;
 Document.prototype.children = null;
 
 Document.prototype.createElement = function(tagName) {

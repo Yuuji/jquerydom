@@ -17,7 +17,10 @@ var element = function(data, parent, isDeepClone) {
     }
     
     if (data.text) {
+        this.nodeType = 3;
         this.text = data.text;
+    } else {
+        this.nodeType = 1;
     }
     
     if (data.attribs) {
@@ -49,6 +52,7 @@ ManipulationDefineProperties(element);
 element.prototype.nodejQueryDom = true;
 
 element.prototype.type = null;
+element.prototype.nodeType = 1;
 
 element.prototype.text = null;
 
