@@ -6,11 +6,14 @@ var Events = require('./events');
 var Traversing = require('./traversing');
 var Manipulation = require('./manipulation');
 
-var element = function(data, parent) {
+var element = function(data, parent, isDeepClone) {
+    isDeepClone = isDeepClone || false;
     this.type = data.type || 'tag';
     
     if (data.name) {
         this.nodeName = this.tagName = data.name.toUpperCase();
+    } else if (data.nodeName) {
+        this.nodeName = this.tagName = data.nodeName.toUpperCase();
     }
     
     if (data.text) {
@@ -20,8 +23,8 @@ var element = function(data, parent) {
     this.children = [];
     if (data && data.children) {
         for (var i = 0; i < data.children.length; i++) {
-            if (!data.children[i].nodejQueryDom) {
-                this.children.push(new element(data.children[i], this));
+            if (isDeepClone || !data.children[i].nodejQueryDom) {
+                this.children.push(new element(data.children[i], this, isDeepClone));
             } else {
                 this.children.push(data.children[i]);
             }

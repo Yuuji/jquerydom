@@ -1,11 +1,10 @@
 var Manipulation = function() {
 };
 
-Manipulation.prototype.cloneNode = function(deep, internal) {
+Manipulation.prototype.cloneNode = function(deep) {
     deep = !!deep;
-    internal = !!internal;
     
-    throw new Error('Not supported');
+    return new this.constructor(this, undefined, deep);
 };
 
 module.exports = Manipulation;
