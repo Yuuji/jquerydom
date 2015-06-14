@@ -11,15 +11,15 @@ var Styles = require('./styles');
 var element = function(data, parent, isDeepClone) {
     isDeepClone = isDeepClone || false;
     this.type = data.type || 'tag';
-    
+
     if (data.name) {
         this.name = data.name;
         this.nodeName = this.tagName = data.name.toUpperCase();
     }
     
-    if (data.text) {
+    if (data.data) {
         this.nodeType = 3;
-        this.text = data.text;
+        this.data = data.data;
     } else {
         this.nodeType = 1;
     }
@@ -55,7 +55,7 @@ element.prototype.nodejQueryDom = true;
 element.prototype.type = null;
 element.prototype.nodeType = 1;
 
-element.prototype.text = null;
+element.prototype.data = null;
 
 element.prototype.parent = null;
 element.prototype.parentNode = null;
