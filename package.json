@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "jQuery compatible DOM",
   "main": "main.js",
-  "author": "",
+  "author": "Mia Sophie Moeller <m.moeller@bytevision.net>",
   "license": "GPL-3.0",
   "dependencies": {
       "htmlparser2": "",
