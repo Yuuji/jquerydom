@@ -4,6 +4,7 @@ var modelo = require('modelo');
 
 var Events = require('./events');
 var Traversing = require('./traversing');
+var TraversingDefineProperties = require('./traversingDefineProperties');
 var Manipulation = require('./manipulation');
 
 var element = function(data, parent, isDeepClone) {
@@ -37,6 +38,7 @@ var element = function(data, parent, isDeepClone) {
 };
 
 modelo.inherits(element, Events, Traversing, Manipulation);
+TraversingDefineProperties(element);
 
 element.prototype.nodejQueryDom = true;
 
@@ -84,12 +86,6 @@ Object.defineProperty(element.prototype, 'innerHTML', {
         for (var i = 0; i < preDom.length; i++) {
             this.children.push(new element(preDom[i]));
         }
-    }
-});
-
-Object.defineProperty(element.prototype, 'firstChild', {
-    get: function() {
-        return this.children[0];
     }
 });
 
