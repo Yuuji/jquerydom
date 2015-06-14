@@ -1,24 +1,27 @@
-var htmlparser = require('htmlparser2');
-var serialize = require('dom-serializer');
 var modelo = require('modelo');
 
 var Events = require('./events');
 var Traversing = require('./traversing');
 var TraversingDefineProperties = require('./traversingDefineProperties');
 var Manipulation = require('./manipulation');
+var ManipulationDefineProperties = require('./manipulationDefineProperties');
 
 var element = function(data, parent, isDeepClone) {
     isDeepClone = isDeepClone || false;
     this.type = data.type || 'tag';
     
     if (data.name) {
-        this.nodeName = this.tagName = data.name.toUpperCase();
-    } else if (data.nodeName) {
-        this.nodeName = this.tagName = data.nodeName.toUpperCase();
+        this.name = this.nodeName = this.tagName = data.name.toUpperCase();
     }
     
     if (data.text) {
         this.text = data.text;
+    }
+    
+    if (data.attribs) {
+        this.attribs = data.attribs;
+    } else {
+        this.attribs = {};
     }
     
     this.children = [];
@@ -39,6 +42,7 @@ var element = function(data, parent, isDeepClone) {
 
 modelo.inherits(element, Events, Traversing, Manipulation);
 TraversingDefineProperties(element);
+ManipulationDefineProperties(element);
 
 element.prototype.nodejQueryDom = true;
 
@@ -50,6 +54,8 @@ element.prototype.parent = null;
 element.prototype.parentNode = null;
 element.prototype.parentElement = null;
 
+element.prototype.attribs = null;
+
 element.prototype.children = null;
 element.prototype.className = '';
 
@@ -59,6 +65,7 @@ element.prototype.clientTop = 0;
 element.prototype.clientWidth = 0;
 
 element.prototype.id = '';
+element.prototype.name = '';
 element.prototype.nodeName = '';
 
 element.prototype.offsetHeight = 0;
@@ -72,21 +79,5 @@ element.prototype.scrollTop = 0;
 element.prototype.scrollWidth = 0;
 
 element.prototype.tagName = '';
-
-Object.defineProperty(element.prototype, 'innerHTML', {
-    get: function() {
-        console.log(serialize(this));
-        throw new Error('Not supported');
-        //return ;
-    },
-    set: function(html) {
-        this.children = [];
-        var preDom = htmlparser.parseDOM(html);
-        
-        for (var i = 0; i < preDom.length; i++) {
-            this.children.push(new element(preDom[i]));
-        }
-    }
-});
 
 module.exports = element;

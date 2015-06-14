@@ -4190,10 +4190,10 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 		fragment = document.createDocumentFragment();
 
 	// Setup
-        console.log(div);
-	div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
-console.log(div);
-	// IE strips leading whitespace when .innerHTML is used
+
+    div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
+
+    // IE strips leading whitespace when .innerHTML is used
 	support.leadingWhitespace = div.firstChild.nodeType === 3;
 
 	// Make sure that tbody elements aren't automatically inserted

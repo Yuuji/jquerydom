@@ -6,7 +6,7 @@ var nodejQuery = function() {
 };
 
 nodejQuery.prototype.initjQuery = function() {
-    global.document = new Document('<html><head></head><body></body></html>');
+    global.document = new Document('<html><head></head><body test="test2"></body></html>');
     global.window = new Window(document);
     
     require('./jquery-1.11.3')(global);
