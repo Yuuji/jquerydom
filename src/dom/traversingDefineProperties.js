@@ -37,6 +37,10 @@ module.exports = function(obj) {
                 element = element.parent;
             }
             
+            if (element.nodeType === 9) {
+                element = element.firstChild;
+            }
+            
             return element;
         }
     });

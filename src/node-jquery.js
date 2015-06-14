@@ -11,7 +11,7 @@ nodejQuery.prototype.initjQuery = function() {
     
     var $ = require('./jquery-1.11.3')(window);
     $('body').html('<foo>Hall&ouml;</foo><bar>W&ouml;rld</bar>');
-    console.log($('html').text());
+    console.log(document.documentElement.outerHTML);
 };
 
 module.exports = nodejQuery;

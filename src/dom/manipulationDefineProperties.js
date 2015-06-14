@@ -18,6 +18,15 @@ module.exports = function(obj) {
             }
         }
     });
+    
+    Object.defineProperty(obj.prototype, 'outerHTML', {
+        get: function() {
+            return serialize(this);
+        },
+        set: function(html) {
+            throw new Exception('Not supported yet');
+        }
+    });
 
     Object.defineProperty(obj.prototype, 'attributes', {
         get: function() {
