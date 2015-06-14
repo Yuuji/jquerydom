@@ -12,4 +12,8 @@ Manipulation.prototype.appendChild = function(newChild) {
     return newChild;
 };
 
+Manipulation.prototype.setAttribute = function(key, value) {
+    this.attribs[key] = value;
+};
+
 module.exports = Manipulation;
