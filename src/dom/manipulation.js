@@ -16,4 +16,8 @@ Manipulation.prototype.setAttribute = function(key, value) {
     this.attribs[key] = value;
 };
 
+Manipulation.prototype.getAttribute = function(key) {
+    return this.attribs[key];
+};
+
 module.exports = Manipulation;
