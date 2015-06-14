@@ -11,4 +11,16 @@ module.exports = function(obj) {
             return this.children[this.children.length-1];
         }
     });
+    
+    Object.defineProperty(obj.prototype, 'documentElement', {
+        get: function() {
+            var element = this;
+            
+            while (element.parent) {
+                element = element.parent;
+            }
+            
+            return element;
+        }
+    });
 };

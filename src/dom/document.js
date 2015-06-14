@@ -4,6 +4,7 @@ var Element = require('./element');
 var DocumentFragment = require('./documentFragment');
 var Events = require('./events');
 var Traversing = require('./traversing');
+var TraversingDefineProperties = require('./traversingDefineProperties');
 
 var Document = function(html) {
     var preDom = htmlparser.parseDOM(html)[0];
@@ -12,6 +13,7 @@ var Document = function(html) {
 };
 
 modelo.inherits(Document, Events, Traversing);
+TraversingDefineProperties(Document);
 
 
 Document.prototype.children = null;
