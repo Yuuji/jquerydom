@@ -12,7 +12,8 @@
  * Date: 2015-04-28T16:19Z
  */
 
-(function( setGlobal, factory ) {
+(function( global, factory ) {
+
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 		// For CommonJS and CommonJS-like environments where a proper window is present,
 		// execute the factory and get jQuery
@@ -21,8 +22,8 @@
 		// This accentuates the need for the creation of a real window
 		// e.g. var jQuery = require("jquery")(window);
 		// See ticket #14549 for more info
-		module.exports = setGlobal.document ?
-			factory( setGlobal, true ) :
+		module.exports = global.document ?
+			factory( global, true ) :
 			function( w ) {
 				if ( !w.document ) {
 					throw new Error( "jQuery requires a window with a document" );
@@ -30,7 +31,7 @@
 				return factory( w );
 			};
 	} else {
-		factory( setGlobal );
+		factory( global );
 	}
 
 // Pass this if window is not defined yet
@@ -41,6 +42,7 @@
 // you try to trace through "use strict" call chains. (#13335)
 // Support: Firefox 18+
 //
+
 var deletedIds = [];
 
 var slice = deletedIds.slice;
@@ -925,7 +927,7 @@ function markFunction( fn ) {
  * @param {Function} fn Passed the created div and expects a boolean result
  */
 function assert( fn ) {
-	var div = window.document.createElement("div");
+	var div = document.createElement("div");
 
 	try {
 		return !!fn( div );
@@ -4190,10 +4192,9 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 		fragment = document.createDocumentFragment();
 
 	// Setup
+	div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
 
-    div.innerHTML = "  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>";
-
-    // IE strips leading whitespace when .innerHTML is used
+	// IE strips leading whitespace when .innerHTML is used
 	support.leadingWhitespace = div.firstChild.nodeType === 3;
 
 	// Make sure that tbody elements aren't automatically inserted
