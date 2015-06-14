@@ -57,7 +57,6 @@ element.prototype.parentElement = null;
 element.prototype.attribs = null;
 
 element.prototype.children = null;
-element.prototype.className = '';
 
 element.prototype.clientHeight = 0;
 element.prototype.clientLeft = 0;

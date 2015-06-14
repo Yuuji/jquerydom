@@ -26,4 +26,10 @@ module.exports = function(obj) {
         }
     });
     
+    Object.defineProperty(obj.prototype, 'className', {
+        get: function() {
+            return this.attribs.className;
+        }
+    });
+    
 };
