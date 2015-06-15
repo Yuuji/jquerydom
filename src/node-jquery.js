@@ -6,12 +6,16 @@ var nodejQuery = function() {
 };
 
 nodejQuery.prototype.initjQuery = function() {
-    var document = new Document('<html><head></head><body></body></html>');
-    var window = new Window(document);
+    this.document = new Document('<html><head></head><body></body></html>');
+    this.window = new Window(this.document);
     
-    var $ = require('./jquery-1.11.3')(window);
-    $('body').html('<foo>Hall&ouml;</foo><bar>W&ouml;rld</bar>');
-    console.log(document.documentElement.outerHTML);
+    this.jQuery = require('./jquery-1.11.3')(this.window);
+    
+    return 
 };
+
+nodejQuery.prototype.window = null;
+nodejQuery.prototype.document = null;
+nodejQuery.prototype.jQuery = null;
 
 module.exports = nodejQuery;

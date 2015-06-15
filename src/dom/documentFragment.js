@@ -13,6 +13,7 @@ var DocumentFragment = function() {
 modelo.inherits(DocumentFragment, Events, Traversing, Manipulation);
 TraversingDefineProperties(DocumentFragment);
 
+DocumentFragment.prototype.nodeType = 11;
 DocumentFragment.prototype.children = [];
 DocumentFragment.prototype.firstElementChild = null;
 DocumentFragment.prototype.lastElementChild = null;
