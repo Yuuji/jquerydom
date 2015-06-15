@@ -12,6 +12,20 @@ Manipulation.prototype.appendChild = function(newChild) {
     return newChild;
 };
 
+Manipulation.prototype.removeChild = function(child) {
+    var index = this.children.indexOf(child);
+    
+    if (index > -1) {
+        var subchild;
+        while ((subchild = this.children[index].firstChild)) {
+            this.children[index].removeChild(subchild);
+        }
+        
+        var removedChild = this.children.splice(index, 1)[0];
+        delete removedChild;
+    }
+};
+
 Manipulation.prototype.setAttribute = function(key, value) {
     this.attribs[key] = value;
 };

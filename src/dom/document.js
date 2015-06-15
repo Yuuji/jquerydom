@@ -5,6 +5,7 @@ var DocumentFragment = require('./documentFragment');
 var Events = require('./events');
 var Traversing = require('./traversing');
 var TraversingDefineProperties = require('./traversingDefineProperties');
+var Manipulation = require('./manipulation');
 var ManipulationDefineProperties = require('./manipulationDefineProperties');
 
 var Document = function(html) {
@@ -13,7 +14,7 @@ var Document = function(html) {
     this.children.push(new Element(preDom));
 };
 
-modelo.inherits(Document, Events, Traversing);
+modelo.inherits(Document, Events, Traversing, Manipulation);
 TraversingDefineProperties(Document);
 ManipulationDefineProperties(Document);
 
