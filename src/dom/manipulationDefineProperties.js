@@ -1,6 +1,7 @@
 var htmlparser = require('htmlparser2');
 var serialize = require('dom-serializer');
 var entities = require('entities');
+var Styles = require('./styles');
 
 
 module.exports = function(obj) {
@@ -10,11 +11,16 @@ module.exports = function(obj) {
             return serialize(this.children);
         },
         set: function(html) {
-            this.children = [];
+            var child;
+            while ((child = this.firstChild)) {
+                this.removeChild(child);
+            }
+            
             var preDom = htmlparser.parseDOM(html);
-
+            
+            var Element = require('./element');
             for (var i = 0; i < preDom.length; i++) {
-                this.children.push(new this.constructor(preDom[i], this));
+                this.children.push(new Element(preDom[i], this));
             }
         }
     });
@@ -34,9 +40,21 @@ module.exports = function(obj) {
         }
     });
     
+    Object.defineProperty(obj.prototype, 'id', {
+        get: function() {
+            return this.attribs.id || '';
+        }
+    });
+    
     Object.defineProperty(obj.prototype, 'className', {
         get: function() {
-            return this.attribs.className;
+            return this.attribs.class || '';
+        }
+    });
+    
+    Object.defineProperty(obj.prototype, 'src', {
+        get: function() {
+            return this.attribs.src;
         }
     });
     
@@ -46,6 +64,23 @@ module.exports = function(obj) {
         }
     });
     
-    
+    Object.defineProperty(obj.prototype, 'style', {
+        get: function() {
+            if (this.styles === null) {
+                this.styles = new Styles(this.attribs.style);
+            }
+
+            return this.styles.styles;
+        }
+    });
+    Object.defineProperty(obj.prototype, 'currentStyle', {
+        get: function() {
+            if (this.styles === null) {
+                this.styles = new Styles(this.attribs.style);
+            }
+
+            return this.styles.styles;
+        }
+    });
     
 };
