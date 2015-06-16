@@ -1,5 +1,11 @@
 module.exports = function(obj) {
     
+    Object.defineProperty(obj.prototype, 'childNodes', {
+        get: function() {
+            return this.children;
+        }
+    });
+    
     Object.defineProperty(obj.prototype, 'firstChild', {
         get: function() {
             return this.children[0];
@@ -42,6 +48,33 @@ module.exports = function(obj) {
             }
             
             return element;
+        }
+    });
+    
+    Object.defineProperty(obj.prototype, 'ownerDocument', {
+        get: function() {
+            var element = this;
+            
+            if (element.nodeType === 9 || element.nodeType === 11) {
+                return null;
+            }
+            
+            while (element.nodeType !== 9 && element.nodeType !== 11) {
+                if (!element.parent) {
+                    return document;
+                }
+                
+                element = element.parent;
+            }
+            
+            
+            return element;
+        }
+    });
+    
+    Object.defineProperty(obj.prototype, 'body', {
+        get: function() {
+            return this.getElementsByTagName('body')[0];
         }
     });
 };
