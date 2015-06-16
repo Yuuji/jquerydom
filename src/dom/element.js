@@ -6,7 +6,6 @@ var TraversingDefineProperties = require('./traversingDefineProperties');
 var Manipulation = require('./manipulation');
 var ManipulationDefineProperties = require('./manipulationDefineProperties');
 
-var Styles = require('./styles');
 
 var element = function(data, parent, isDeepClone) {
     isDeepClone = isDeepClone || false;
@@ -87,15 +86,5 @@ element.prototype.scrollWidth = 0;
 element.prototype.tagName = '';
 
 element.prototype.styles = null;
-
-Object.defineProperty(element.prototype, 'style', {
-    get: function() {
-        if (this.styles === null) {
-            this.styles = new Styles(this.attribs.style);
-        }
-        
-        return this.styles.styles;
-    }
-});
 
 module.exports = element;
