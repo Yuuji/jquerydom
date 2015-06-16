@@ -1,7 +1,8 @@
 var jQuery = require('./src/node-jquery');
 
-module.exports = function() {
-    var data = new jQuery();
+module.exports = function(URL) {
+    var data = new jQuery(URL);
+    
     return {
         window: data.window,
         document: data.document,
