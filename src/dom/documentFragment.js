@@ -7,14 +7,14 @@ var Manipulation = require('./manipulation');
 
 
 var DocumentFragment = function() {
-    
+    this.children = [];
 };
 
 modelo.inherits(DocumentFragment, Events, Traversing, Manipulation);
 TraversingDefineProperties(DocumentFragment);
 
 DocumentFragment.prototype.nodeType = 11;
-DocumentFragment.prototype.children = [];
+DocumentFragment.prototype.children = null;
 DocumentFragment.prototype.firstElementChild = null;
 DocumentFragment.prototype.lastElementChild = null;
 DocumentFragment.prototype.childElementCount = 0;
