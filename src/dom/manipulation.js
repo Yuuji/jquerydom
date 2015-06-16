@@ -8,7 +8,29 @@ Manipulation.prototype.cloneNode = function(deep) {
 };
 
 Manipulation.prototype.appendChild = function(newChild) {
-    this.children.push(newChild);
+    newChild.parent = this;
+    if (newChild.nodeType === 11 || newChild.nodeType === 9) {
+        for (var i = 0; i < newChild.children.length; i++) {
+            this.appendChild(newChild.children[i]);
+        }
+    } else {
+        this.children.push(newChild);
+    }
+    return newChild;
+};
+
+Manipulation.prototype.insertBefore = function(newChild, referenceElement) {
+    if (newChild.nodeType === 11 || newChild.nodeType === 9) {
+        for (var i = 0; i < newChild.children.length; i++) {
+            this.insertBefore(newChild.children[i]);
+        }
+    } else {
+        var pos = this.children.indexOf(referenceElement);
+
+        newChild.parent = this;
+        this.children.splice(pos-1, 0, newChild);
+    }
+    
     return newChild;
 };
 
@@ -33,5 +55,10 @@ Manipulation.prototype.setAttribute = function(key, value) {
 Manipulation.prototype.getAttribute = function(key) {
     return this.attribs[key];
 };
+
+Manipulation.prototype.removeAttribute = function(key) {
+    delete this.attribs[key];
+};
+
 
 module.exports = Manipulation;
