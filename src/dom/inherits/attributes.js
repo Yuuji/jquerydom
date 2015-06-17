@@ -1,39 +1,27 @@
-var htmlparser = require('htmlparser2');
-var serialize = require('dom-serializer');
-var entities = require('entities');
-var Styles = require('./styles');
+var Styles = require('../styles');
 
-
-module.exports = function(obj) {
+var Attributes = function() {
     
-    Object.defineProperty(obj.prototype, 'innerHTML', {
-        get: function() {
-            return serialize(this.children);
-        },
-        set: function(html) {
-            var child;
-            while ((child = this.firstChild)) {
-                this.removeChild(child);
-            }
-            
-            var preDom = htmlparser.parseDOM(html);
-            
-            var Element = require('./element');
-            for (var i = 0; i < preDom.length; i++) {
-                this.children.push(new Element(preDom[i], this));
-            }
-        }
-    });
-    
-    Object.defineProperty(obj.prototype, 'outerHTML', {
-        get: function() {
-            return serialize(this);
-        },
-        set: function(html) {
-            throw new Exception('Not supported yet');
-        }
-    });
+};
 
+Attributes.prototype.attribs = null;
+Attributes.prototype.styles = null;
+
+
+Attributes.prototype.setAttribute = function(key, value) {
+    this.attribs[key] = value;
+};
+
+Attributes.prototype.getAttribute = function(key) {
+    return this.attribs[key];
+};
+
+Attributes.prototype.removeAttribute = function(key) {
+    delete this.attribs[key];
+};
+
+
+var defineProperties = function(obj) {
     Object.defineProperty(obj.prototype, 'attributes', {
         get: function() {
             return this.attribs;
@@ -82,5 +70,9 @@ module.exports = function(obj) {
             return this.styles.styles;
         }
     });
-    
+};
+
+module.exports = {
+    class: Attributes,
+    defineProperties: defineProperties
 };

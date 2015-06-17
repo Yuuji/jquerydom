@@ -1,13 +1,6 @@
-var modelo = require('modelo');
+var inherits = require('./inherits');
 
-var Events = require('./events');
-var Traversing = require('./traversing');
-var TraversingDefineProperties = require('./traversingDefineProperties');
-var Manipulation = require('./manipulation');
-var ManipulationDefineProperties = require('./manipulationDefineProperties');
-
-
-var element = function(data, parent, isDeepClone) {
+var Element = function(data, parent, isDeepClone) {
     isDeepClone = isDeepClone || false;
     this.type = data.type || 'tag';
 
@@ -33,7 +26,7 @@ var element = function(data, parent, isDeepClone) {
     if (data && data.children) {
         for (var i = 0; i < data.children.length; i++) {
             if (isDeepClone || !data.children[i].nodejQueryDom) {
-                this.children.push(new element(data.children[i], this, isDeepClone));
+                this.children.push(new Element(data.children[i], this, isDeepClone));
             } else {
                 this.children.push(data.children[i]);
             }
@@ -45,46 +38,42 @@ var element = function(data, parent, isDeepClone) {
     }
 };
 
-modelo.inherits(element, Events, Traversing, Manipulation);
-TraversingDefineProperties(element);
-ManipulationDefineProperties(element);
+var Attributes = require('./inherits/attributes');
+var Events = require('./inherits/events');
+var Children = require('./inherits/children');
+var Utils = require('./inherits/utils');
 
-element.prototype.nodejQueryDom = true;
+inherits(Element, Attributes, Events, Children, Utils);
 
-element.prototype.type = null;
-element.prototype.nodeType = 1;
+Element.prototype.nodejQueryDom = true;
 
-element.prototype.data = null;
+Element.prototype.type = null;
+Element.prototype.nodeType = 1;
 
-element.prototype.parent = null;
-element.prototype.parentNode = null;
-element.prototype.parentElement = null;
+Element.prototype.data = null;
 
-element.prototype.attribs = null;
+Element.prototype.parent = null;
+Element.prototype.parentNode = null;
+Element.prototype.parentElement = null;
 
-element.prototype.children = null;
+Element.prototype.clientHeight = 0;
+Element.prototype.clientLeft = 0;
+Element.prototype.clientTop = 0;
+Element.prototype.clientWidth = 0;
 
-element.prototype.clientHeight = 0;
-element.prototype.clientLeft = 0;
-element.prototype.clientTop = 0;
-element.prototype.clientWidth = 0;
+Element.prototype.name = '';
+Element.prototype.nodeName = '';
 
-element.prototype.id = '';
-element.prototype.name = '';
-element.prototype.nodeName = '';
+Element.prototype.offsetHeight = 0;
+Element.prototype.offsetLeft = 0;
+Element.prototype.offsetTop = 0;
+Element.prototype.offsetWidth = 0;
 
-element.prototype.offsetHeight = 0;
-element.prototype.offsetLeft = 0;
-element.prototype.offsetTop = 0;
-element.prototype.offsetWidth = 0;
+Element.prototype.scrollHeight = 0;
+Element.prototype.scrollLeft = 0;
+Element.prototype.scrollTop = 0;
+Element.prototype.scrollWidth = 0;
 
-element.prototype.scrollHeight = 0;
-element.prototype.scrollLeft = 0;
-element.prototype.scrollTop = 0;
-element.prototype.scrollWidth = 0;
+Element.prototype.tagName = '';
 
-element.prototype.tagName = '';
-
-element.prototype.styles = null;
-
-module.exports = element;
+module.exports = Element;

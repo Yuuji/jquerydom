@@ -1,12 +1,8 @@
 var htmlparser = require('htmlparser2');
-var modelo = require('modelo');
+
+var inherits = require('./inherits');
 var Element = require('./element');
 var DocumentFragment = require('./documentFragment');
-var Events = require('./events');
-var Traversing = require('./traversing');
-var TraversingDefineProperties = require('./traversingDefineProperties');
-var Manipulation = require('./manipulation');
-var ManipulationDefineProperties = require('./manipulationDefineProperties');
 
 var Document = function(html) {
     var preDom = htmlparser.parseDOM(html)[0];
@@ -14,9 +10,11 @@ var Document = function(html) {
     this.children.push(new Element(preDom));
 };
 
-modelo.inherits(Document, Events, Traversing, Manipulation);
-TraversingDefineProperties(Document);
-ManipulationDefineProperties(Document);
+var Events = require('./inherits/events');
+var Children = require('./inherits/children');
+var Utils = require('./inherits/utils');
+
+inherits(Document, Events, Children, Utils);
 
 
 Document.prototype.nodeType = 9;
@@ -30,10 +28,6 @@ Document.prototype.createDocumentFragment = function() {
     return new DocumentFragment();
 };
 
-//getElementById
-//getElementsByTagName
-//removeEventListener
-//
 //body
 //readyState
 // documentElement

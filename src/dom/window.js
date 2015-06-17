@@ -1,7 +1,4 @@
-var Events = require('./events');
-var modelo = require('modelo');
-
-var ManipulationDefineProperties = require('./manipulationDefineProperties');
+var inherits = require('./inherits');
 
 var Window = function(document) {
     this.document = document;
@@ -14,9 +11,11 @@ var Window = function(document) {
     this.clearTimeout = clearTimeout;
 };
 
-modelo.inherits(Window, Events);
+var Attributes = require('./inherits/attributes');
+var Events = require('./inherits/events');
+var Utils = require('./inherits/events');
 
-ManipulationDefineProperties(Window);
+inherits(Window, Events, Attributes, Utils);
 
 Window.prototype.document = null;
 
@@ -25,9 +24,6 @@ Window.prototype.clearInterval = null;
 
 Window.prototype.setTimeout = null;
 Window.prototype.clearTimeout = null;
-
-Window.prototype.attribs = null;
-Window.prototype.styles = null;
 
 Window.prototype.scrollTo = function() {
     // We don't have this ;)

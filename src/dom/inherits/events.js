@@ -18,4 +18,6 @@ Events.prototype.removeEventListener = function (type, listener) {
     eventEmitter.removeListener(type, listener);
 };
 
-module.exports = Events
+module.exports = {
+    class: Events
+};
