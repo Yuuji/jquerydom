@@ -11,5 +11,12 @@
       "modelo": "",
       "css": "",
       "entities": ""
+  },
+  "devDependencies": {
+    "mocha": "",
+    "should": ""
+  },
+  "scripts": {
+    "test": "mocha tests/*.js"
   }
 }
