@@ -1,13 +1,26 @@
+/**
+ * Collection of utils
+ * 
+ * @constructor
+ */
 var Utils = function() {
     
 };
 
+/**
+ * Clons the current node
+ * 
+ * @param {boolean} deep true, if deep copy
+ * 
+ * @returns {this.constructor}
+ */
 Utils.prototype.cloneNode = function(deep) {
     deep = !!deep;
     
     return new this.constructor(this, undefined, deep);
 };
 
+// properties collection
 var defineProperties = function(obj) {
     Object.defineProperty(obj.prototype, 'documentElement', {
         get: function() {

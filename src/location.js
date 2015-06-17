@@ -1,5 +1,11 @@
 var URL = require('url')
 
+/**
+ * 
+ * @param {type} url
+ * @param {type} window
+ * @returns {Location}
+ */
 var Location = function(url, window) {
     this.urlData = URL.parse(url);
     this.window = window;
@@ -7,15 +13,29 @@ var Location = function(url, window) {
     this.updateURL();
 };
 
+/**
+ * URL data 
+ * @type {return:Url.parse|Array}
+ */
 Location.prototype.urlData = null;
+
+/**
+ * Window object
+ * 
+ * @type {Window}
+ */
 Location.prototype.window = null;
 
+/**
+ * update the URL
+ */
 Location.prototype.updateURL = function() {
     var urlString = URL.format(this.urlData)
     this.urlData = URL.parse(urlString);
     this.window.history.addEntry(urlString)
 };
 
+// properties
 Object.defineProperties(Location.prototype, {
   'hash': {
     get: function() {

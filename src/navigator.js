@@ -1,3 +1,6 @@
+/**
+ * Navigator object
+ */
 module.exports = {
     appCodeName: 'Mozilla',
     appName: 'jQueryDom',

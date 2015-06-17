@@ -1,11 +1,26 @@
 var parse = require('css').parse;
 
+/**
+ * CSS type
+ * 
+ * @constructor
+ * @param {string} style
+ */
 var Styles = function(style) {
     this.setStyles(style);
 };
 
+/**
+ * CSS object
+ * 
+ * @type {Array.<string, string>}
+ */
 Styles.prototype.styles = null;
 
+/**
+ * 
+ * @param {string} style the css
+ */
 Styles.prototype.setStyles = function(style) {
     this.styles = {};
     if (style) {
@@ -25,6 +40,9 @@ Styles.prototype.setStyles = function(style) {
     }
 };
 
+/**
+ * cssText propert
+ */
 Object.defineProperty(Styles.prototype, 'cssText', {
     get: function() {
         var stylesArray = [];

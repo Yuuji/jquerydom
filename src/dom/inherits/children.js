@@ -2,13 +2,28 @@ var htmlparser = require('htmlparser2');
 var serialize = require('dom-serializer');
 var entities = require('entities');
 
-
+/**
+ * Collection of children depending functions, getter and setter
+ * 
+ * @cobstructor
+ */
 var Children = function() {
     
 };
 
+/**
+ * Children
+ * 
+ * @type {Array.<Element>}
+ */
 Children.prototype.children = null;
 
+/**
+ * Appends a child
+ * 
+ * @param {(Element|Document|DocumentFragment)} newChild
+ * @returns {(Element|Document|DocumentFragment)}
+ */
 Children.prototype.appendChild = function(newChild) {
     newChild.parent = this;
     if (newChild.nodeType === 11 || newChild.nodeType === 9) {
@@ -21,6 +36,13 @@ Children.prototype.appendChild = function(newChild) {
     return newChild;
 };
 
+/**
+ * insert child before the reference element
+ * 
+ * @param {(Element|DocumentFragment)} newChild
+ * @param {(Element|DocumentFragment)} referenceElement
+ * @returns {(Element|DocumentFragment)}
+ */
 Children.prototype.insertBefore = function(newChild, referenceElement) {
     if (newChild.nodeType === 11 || newChild.nodeType === 9) {
         for (var i = 0; i < newChild.children.length; i++) {
@@ -36,6 +58,11 @@ Children.prototype.insertBefore = function(newChild, referenceElement) {
     return newChild;
 };
 
+/**
+ * Removes a child
+ * 
+ * @param {Element} child
+ */
 Children.prototype.removeChild = function(child) {
     var index = this.children.indexOf(child);
     
@@ -50,6 +77,12 @@ Children.prototype.removeChild = function(child) {
     }
 };
 
+/**
+ * Returns the element with the given id
+ * 
+ * @param {string} id
+ * @returns {Element?}
+ */
 Children.prototype.getElementById = function(id) {
     id = id.toLowerCase();
     
@@ -68,7 +101,12 @@ Children.prototype.getElementById = function(id) {
     return null;
 };
 
-
+/**
+ * Returns all elements with the given tagname
+ * 
+ * @param {string} tagname
+ * @returns {Array.<Element>}
+ */
 Children.prototype.getElementsByTagName = function(tagname) {
     tagname = tagname.toLowerCase();
     
@@ -83,6 +121,12 @@ Children.prototype.getElementsByTagName = function(tagname) {
     return elements;
 };
 
+/**
+ * Returns all elements with the given classname or classnames (splited by ' ')
+ * 
+ * @param {string} names
+ * @returns {Array.<Element>}
+ */
 Children.prototype.getElementsByClassName = function(names) {
     names = names.toLowerCase();
     var namesArray = names.split(' ');
@@ -109,6 +153,7 @@ Children.prototype.getElementsByClassName = function(names) {
     return elements;
 };
 
+// Collection of properties
 var defineProperties = function(obj) {
     Object.defineProperty(obj.prototype, 'innerHTML', {
         get: function() {
