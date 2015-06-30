@@ -1,4 +1,6 @@
 var Styles = require('../styles');
+var entities = require('entities');
+
 
 /**
  * Collection of attribute depending functions and getter / setter

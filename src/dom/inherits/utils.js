@@ -17,7 +17,7 @@ var Utils = function() {
 Utils.prototype.cloneNode = function(deep) {
     deep = !!deep;
     
-    return new this.constructor(this, undefined, deep);
+    return new this.constructor(this, undefined, true, deep);
 };
 
 // properties collection

@@ -8,9 +8,9 @@ global.document = jQueryData.document;
 global.$ = global.jQuery = jQueryData.jQuery;
 
 
-describe('History', function(){
-    describe('addEntry', function(){
-        it('entry should be added', function(){
+describe('history', function(){
+    describe('functions', function(){
+        it('addEntry', function(){
             window.history.addEntry('/test');
             window.history.entries_[1].should.eql('/test');
             window.history.length.should.eql(2);

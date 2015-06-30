@@ -53,6 +53,7 @@ Object.defineProperties(Location.prototype, {
     },
     set: function(newValue) {
         this.urlData['host'] = newValue;
+        delete this.urlData['hostname'];
         
         this.updateURL();
     }
@@ -63,6 +64,7 @@ Object.defineProperties(Location.prototype, {
     },
     set: function(newValue) {
         this.urlData['hostname'] = newValue;
+        delete this.urlData['host'];
         
         this.updateURL();
     }
@@ -72,7 +74,7 @@ Object.defineProperties(Location.prototype, {
         return this.urlData['href'] || '';
     },
     set: function(newValue) {
-        this.urlData = URL.parse(href);
+        this.urlData = URL.parse(newValue);
         this.updateURL();
     }
   },
@@ -97,6 +99,7 @@ Object.defineProperties(Location.prototype, {
     },
     set: function(newValue) {
         this.urlData['port'] = newValue;
+        delete this.urlData['host'];
         
         this.updateURL();
     }

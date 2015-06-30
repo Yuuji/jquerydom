@@ -1,6 +1,7 @@
 var util = require('util');
 var events = require('events');
-var eventEmitter = new events.EventEmitter();
+
+
 
 /**
  * Events support
@@ -8,6 +9,8 @@ var eventEmitter = new events.EventEmitter();
  * @constructor
  */
 var Events = function() {
+    this._eventEmitter = new events.EventEmitter();
+    this._eventEmitter.setMaxListeners(999);
 };
 
 /**
@@ -18,7 +21,7 @@ var Events = function() {
  * @param {?} opt_useCapture No support
  */
 Events.prototype.addEventListener = function (type, listener, opt_useCapture) {
-    eventEmitter.addListener(type, listener);
+    this._eventEmitter.addListener(type, listener);
 };
 
 /**
@@ -27,7 +30,7 @@ Events.prototype.addEventListener = function (type, listener, opt_useCapture) {
  * @param {string} type
  */
 Events.prototype.dispatchEvent = function (type) {
-    eventEmitter.emit(type);
+    this._eventEmitter.emit(type);
 };
 
 /**
@@ -37,7 +40,7 @@ Events.prototype.dispatchEvent = function (type) {
  * @param {Function} listener
  */
 Events.prototype.removeEventListener = function (type, listener) {
-    eventEmitter.removeListener(type, listener);
+    this._eventEmitter.removeListener(type, listener);
 };
 
 module.exports = {

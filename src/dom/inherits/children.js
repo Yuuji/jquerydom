@@ -1,6 +1,5 @@
 var htmlparser = require('htmlparser2');
 var serialize = require('dom-serializer');
-var entities = require('entities');
 
 /**
  * Collection of children depending functions, getter and setter

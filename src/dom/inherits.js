@@ -15,6 +15,14 @@ module.exports = function (obj, var_args) {
     
     modelo.inherits.apply(modelo, modeloArguments);
     
+    obj.prototype._inheritsList = modeloArguments;
+    
+    obj.prototype._initInherits = function() {
+        for (var i = 1; i < this._inheritsList.length; i++) {
+            this._inheritsList[i].call(this);
+        }
+    };
+    
     for (var i = 1; i < arguments.length; i++) {
         if (arguments[i].defineProperties) {
             arguments[i].defineProperties(obj);

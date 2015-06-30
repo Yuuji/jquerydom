@@ -7,6 +7,8 @@ var inherits = require('./inherits');
  * @param {Document} document
  */
 var Window = function(document) {
+    this._initInherits();
+    
     // set document
     this.document = document;
     

@@ -6,6 +6,8 @@ var inherits = require('./inherits');
  * @constructor
  */
 var DocumentFragment = function() {
+    this._initInherits();
+    
     // reset children, start without children
     this.children = [];
 };

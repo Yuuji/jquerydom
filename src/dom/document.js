@@ -11,6 +11,8 @@ var DocumentFragment = require('./documentFragment');
  * @param {string} html
  */
 var Document = function(html) {
+    this._initInherits();
+    
     // Parse the HTML
     var preDom = htmlparser.parseDOM(html)[0];
     

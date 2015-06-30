@@ -10,13 +10,14 @@
       "dom-serializer": "",
       "modelo": "",
       "css": "",
-      "entities": ""
+      "entities": "",
+      "deepcopy": ""
   },
   "devDependencies": {
     "mocha": "",
     "should": ""
   },
   "scripts": {
-    "test": "mocha tests/*.js"
+    "test": "mocha --recursive tests"
   }
 }

@@ -1,4 +1,5 @@
 var inherits = require('./inherits');
+var deepcopy = require('deepcopy');
 
 /**
  * This is the element type
@@ -6,10 +7,14 @@ var inherits = require('./inherits');
  * @constructor
  * @param {return:htmlparser.parseDOM} data the parsed object
  * @param {(Element|Document|DocumentFragment)=} parent Parent of this element
+ * @param {boolean=} isClone true, if this is a deep clone
  * @param {boolean=} isDeepClone true, if this is a deep clone
  */
-var Element = function(data, parent, isDeepClone) {
+var Element = function(data, parent, isClone, isDeepClone) {
+    this._initInherits();
+    
     // default values
+    isClone = isClone || false;
     isDeepClone = isDeepClone || false;
     this.type = data.type || 'tag';
 
@@ -31,17 +36,17 @@ var Element = function(data, parent, isDeepClone) {
     
     // copy the attributes
     if (data.attribs) {
-        this.attribs = data.attribs;
+        this.attribs = deepcopy(data.attribs);
     } else {
         this.attribs = {};
     }
     
     // create the children
     this.children = [];
-    if (data && data.children) {
+    if ((!isClone || isDeepClone) && data && data.children) {
         for (var i = 0; i < data.children.length; i++) {
             if (isDeepClone || !data.children[i].nodejQueryDom) {
-                this.children.push(new Element(data.children[i], this, isDeepClone));
+                this.children.push(new Element(data.children[i], this, isClone, isDeepClone));
             } else {
                 this.children.push(data.children[i]);
             }
