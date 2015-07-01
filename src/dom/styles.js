@@ -4,11 +4,19 @@ var parse = require('css').parse;
  * CSS type
  * 
  * @constructor
- * @param {string} style
+ * @param {Object} style
  */
-var Styles = function(style) {
-    this.setStyles(style);
+var Styles = function(obj) {
+    this.setStyles(obj.attribs.style);
+    this.attribThis = obj;
 };
+
+/**
+ * Object of attribs
+ * 
+ * @type {Object}
+ */
+Styles.prototype.attribThis = null;
 
 /**
  * CSS object
@@ -18,19 +26,11 @@ var Styles = function(style) {
 Styles.prototype.styles = null;
 
 /**
- * original CSS object
- * 
- * @type {Array.<string, string>}
- */
-Styles.prototype.originalStyles = null;
-
-/**
  * 
  * @param {string} style the css
  */
 Styles.prototype.setStyles = function(style) {
     this.styles = {};
-    this.originalStyles = {};
     
     if (style) {
         var data = parse('test { ' + style + ' }');
@@ -42,9 +42,6 @@ Styles.prototype.setStyles = function(style) {
                 var rule = declarations[i];
 
                 if (rule.type === 'declaration' ) {
-                    this.originalStyles[rule.property.toLowerCase()] = rule.value;
-                    this.styles[rule.property.toLowerCase()] = rule.value;
-                    
                     var propertyParts = rule.property.split('-');
                     if (propertyParts.length > 1) {
                         var propertyKey = propertyParts[0].toLowerCase();
@@ -54,6 +51,8 @@ Styles.prototype.setStyles = function(style) {
                         }
                         
                         this.styles[propertyKey] = rule.value;
+                    } else {
+                        this.styles[rule.property.toLowerCase()] = rule.value;
                     }
                 }
             }
@@ -67,14 +66,15 @@ Styles.prototype.setStyles = function(style) {
         get: (function() {
             var stylesArray = [];
 
-            for (var key in this.originalStyles) {
-                stylesArray.push(key + ': ' + this.originalStyles[key]);
+            for (var key in this.styles) {
+                translatedKey = key.split(/(?=[A-Z])/).join('-').toLowerCase();
+                stylesArray.push(translatedKey + ': ' + this.styles[key]);
             }
 
             return stylesArray.join('; ');
         }).bind(this),
         set: (function(val) {
-            this.setStyles(val);
+            this.attribThis.setAttribute('style', val);
         }).bind(this)
     });
 

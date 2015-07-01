@@ -146,11 +146,32 @@ Children.prototype.getElementsByClassName = function(names) {
     return elements;
 };
 
+/**
+ * Updated CSS
+ */
+Children.prototype.updateCSS = function(names) {
+    var child = this.firstChild;
+    
+    while (child) {
+        if (child.styles) {
+            child.setAttribute('style', child.style.cssText);
+        }
+        
+        child.updateCSS();
+        child = child.nextSibling;
+    }
+};
+
 // Collection of properties
 var defineProperties = function(obj) {
     Object.defineProperty(obj.prototype, 'innerHTML', {
         get: function() {
-            return serialize(this.children);
+            // update styles
+            this.updateCSS();
+            
+            return serialize(this.children, {
+                decodeEntities: true
+            });
         },
         set: function(html) {
             var child;

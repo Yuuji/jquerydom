@@ -33,6 +33,16 @@ Attributes.prototype.styles = null;
  */
 Attributes.prototype.setAttribute = function(key, value) {
     this.attribs[key] = value;
+    
+    switch (key) {
+        case 'style':
+            if (this.styles === null) {
+                this.styles = new Styles(this);
+            } else {
+                this.styles.setStyles(this.attribs.style);
+            }
+            break;
+    }
 };
 
 /**
@@ -88,7 +98,7 @@ var defineProperties = function(obj) {
     Object.defineProperty(obj.prototype, 'style', {
         get: function() {
             if (this.styles === null) {
-                this.styles = new Styles(this.attribs.style);
+                this.styles = new Styles(this);
             }
 
             return this.styles.styles;
@@ -97,7 +107,7 @@ var defineProperties = function(obj) {
     Object.defineProperty(obj.prototype, 'currentStyle', {
         get: function() {
             if (this.styles === null) {
-                this.styles = new Styles(this.attribs.style);
+                this.styles = new Styles(this);
             }
 
             return this.styles.styles;
