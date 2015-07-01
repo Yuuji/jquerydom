@@ -66,13 +66,7 @@ Children.prototype.removeChild = function(child) {
     var index = this.children.indexOf(child);
     
     if (index > -1) {
-        var subchild;
-        while ((subchild = this.children[index].firstChild)) {
-            this.children[index].removeChild(subchild);
-        }
-        
-        var removedChild = this.children.splice(index, 1)[0];
-        delete removedChild;
+        this.children.splice(index, 1);
     }
 };
 
