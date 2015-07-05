@@ -1,4 +1,5 @@
 var parse = require('css').parse;
+var entities = require('entities');
 
 /**
  * CSS type
@@ -70,8 +71,8 @@ Styles.prototype.setStyles = function(style) {
                 translatedKey = key.split(/(?=[A-Z])/).join('-').toLowerCase();
                 stylesArray.push(translatedKey + ': ' + this.styles[key]);
             }
-
-            return stylesArray.join('; ');
+            
+            return entities.encodeXML(stylesArray.join('; '));
         }).bind(this),
         set: (function(val) {
             this.attribThis.setAttribute('style', val);

@@ -169,9 +169,7 @@ var defineProperties = function(obj) {
             // update styles
             this.updateCSS();
             
-            return serialize(this.children, {
-                decodeEntities: true
-            });
+            return serialize(this.children);
         },
         set: function(html) {
             var child;
